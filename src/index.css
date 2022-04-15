@@ -1,0 +1,287 @@
+/*----------------------------Estilos Login--------------------------------*/
+
+*{
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.container-primary{
+    background:-webkit-linear-gradient(top, rgb(16, 77, 124), rgb(162, 215, 231));  
+}
+
+.container-login{
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.box-login{
+    background-color: rgba(205, 205, 206, 0.7);
+    border: #535353 solid 1px;
+    border-radius: 15px;
+    padding-top: 85px;
+    padding-bottom: 35px;
+    width: 450px;
+    height: auto;
+    
+    position: relative;
+    bottom: 50px;
+    left: 190px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.box-background-login img{
+    width: 100vw;
+    height: 100vh;
+}
+
+.background-img{
+    position: fixed;
+}
+
+
+.formulario-login{
+    width: 80%;
+    margin: 20px;
+
+    display: flex;
+    flex-direction: column;
+}
+
+
+.box-img-login{
+    display: inline-block;
+    position: relative;
+    top: 40px;
+    left: 190px;
+    z-index: 1;
+}
+
+.img-login{
+    background-color: #104d7c;
+    border-radius: 50%;
+    padding: 10px;
+    width: 150px;
+}
+
+.box-users-login, .box-password-login{
+    display: flex;
+    flex-direction: column;
+}
+
+.box-users-login{
+    margin-bottom: 30px;
+}
+
+.box-users-login:focus-within .label-login-users{/*Damos click en el formulario y el label se anima*/
+    color: #104d7c; 
+}
+
+.box-password-login:focus-within .label-login-password{/*Damos click en el formulario y el label se anima*/
+    color: #104d7c;   
+}
+
+.box-users-login:focus-within .iconUser{/*Damos click en el formulario y el label se anima*/
+    color: #104d7c;   
+}
+
+.box-password-login:focus-within .iconPass{/*Damos click en el formulario y el label se anima*/
+    color: #104d7c;   
+}
+
+.iconUser{
+    font-size: 23px;
+    color: #5e5e5e;
+    position: absolute;
+    right: 65px;
+    bottom: 276px;
+    transition: all 0.5s;
+}
+
+.iconPass{
+    font-size: 23px;
+    color: #5e5e5e;
+    position: absolute;
+    right: 65px;
+    bottom: 153px;
+    transition: all 0.5s;
+}
+
+
+@media screen and (max-width: 1070px){
+    .box-login{
+        width: 400px;
+    }
+
+    .iconUser{
+        position: absolute;
+        right: 50px;
+        bottom: 276px;
+    }
+
+    .iconPass{
+        position: absolute;
+        right: 50px;
+        bottom: 153px;
+    }
+}
+
+@media screen and (max-width: 1000px){
+    .box-login{
+        width: 350px;
+    }
+
+    .iconUser{
+        position: absolute;
+        right: 38px;
+        bottom: 276px;
+    }
+
+    .iconPass{
+        position: absolute;
+        right: 38px;
+        bottom: 153px;
+    }
+}
+
+@media screen and (max-width: 973px){
+    .box-login{
+        position: relative;
+        bottom: 50px;
+        left: 150px;
+    }
+
+    .box-img-login{
+        position: relative;
+        top: 40px;
+        left: 150px;
+        z-index: 1;
+    }
+}
+
+@media screen and (max-width: 816px){
+    .box-login{
+        position: relative;
+        bottom: 50px;
+        left: 100px;
+    }
+
+    .box-img-login{
+        position: relative;
+        top: 40px;
+        left: 100px;
+        z-index: 1;
+    }
+}
+
+
+@media screen and (max-width: 700px){
+    .box-login{
+        position: relative;
+        bottom: 50px;
+        left: 80px;
+    }
+
+    .box-img-login{
+        position: relative;
+        top: 40px;
+        left: 80px;
+        z-index: 1;
+    }
+}
+
+
+@media screen and (max-width: 630px){
+
+    .box-background-login img{
+        display: none;
+    }
+
+    .box-login{
+        position: relative;
+        bottom: 50px;
+        left: 0px;
+    }
+
+    .box-img-login{
+        position: relative;
+        top: 40px;
+        left: 0px;
+        z-index: 1;
+    }
+}
+
+
+@media screen and (max-width: 360px){
+    .box-login{
+        width: 320px;
+    }
+
+    .iconUser{
+        position: absolute;
+        right: 30px;
+        bottom: 276px;
+    }
+
+    .iconPass{
+        position: absolute;
+        right: 30px;
+        bottom: 153px;
+    } 
+}
+
+
+
+/*----------------------------Estilos validación de registro de usuario--------------------------------*/
+
+
+.valid-register{
+    background-color: #ca5050;
+    height: 40px;
+    border-radius: 5px;
+    color: #fff;
+    margin-top: 20px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.iconPassEye{
+    font-size: 23px;
+    color: #5e5e5e;
+    position: absolute;
+    right: 65px;
+    bottom: 232px;
+    cursor: pointer;
+    transition: all 0.5s;
+}
+
+.iconPassEye2{
+    font-size: 23px;
+    color: #5e5e5e;
+    position: absolute;
+    right: 65px;
+    bottom: 153px;
+    cursor: pointer;
+    transition: all 0.5s;
+}
+
+.box-register:focus-within .label-register{/*Damos click en el formulario y el label se anima*/
+    color: #104d7c; 
+}
+
+.box-register:focus-within .iconPassEye{/*Damos click en el formulario y el label se anima*/
+    color: #104d7c; 
+}
+
+.box-register:focus-within .iconPassEye2{/*Damos click en el formulario y el label se anima*/
+    color: #104d7c; 
+}
