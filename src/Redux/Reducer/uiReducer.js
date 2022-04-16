@@ -20,6 +20,12 @@ export const uiReducer = ( state = initialState, action ) => {
                 ...state,
                 msgError: null
             }
+
+        case types.uiStartSpinner:
+            return{
+                ...state,
+                loading: action.payload
+            }
             
         default:
             return state;

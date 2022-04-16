@@ -8,3 +8,8 @@ export const setError = ( err ) => ({
 export const removeError = () => ({
     type: types.uiRemoveError
 })
+
+export const startSpinner = ( spinner ) => ({
+    type: types.uiStartSpinner,
+    payload: spinner
+})

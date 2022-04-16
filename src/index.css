@@ -99,18 +99,18 @@
 .iconUser{
     font-size: 23px;
     color: #5e5e5e;
-    position: absolute;
-    right: 65px;
-    bottom: 276px;
+    position: relative;
+    left: 150px;
+    bottom: 55px;
     transition: all 0.5s;
 }
 
 .iconPass{
     font-size: 23px;
     color: #5e5e5e;
-    position: absolute;
-    right: 65px;
-    bottom: 153px;
+    position: relative;
+    left: 150px;
+    bottom: 55px;
     transition: all 0.5s;
 }
 
@@ -121,15 +121,11 @@
     }
 
     .iconUser{
-        position: absolute;
-        right: 50px;
-        bottom: 276px;
+        left: 140px;
     }
 
     .iconPass{
-        position: absolute;
-        right: 50px;
-        bottom: 153px;
+        left: 140px;
     }
 }
 
@@ -139,15 +135,11 @@
     }
 
     .iconUser{
-        position: absolute;
-        right: 38px;
-        bottom: 276px;
+        left: 120px;
     }
 
     .iconPass{
-        position: absolute;
-        right: 38px;
-        bottom: 153px;
+        left: 120px;
     }
 }
 
@@ -225,22 +217,21 @@
     }
 
     .iconUser{
-        position: absolute;
-        right: 30px;
-        bottom: 276px;
+        left: 120px;
     }
 
     .iconPass{
-        position: absolute;
-        right: 30px;
-        bottom: 153px;
-    } 
+        left: 120px;
+    }
 }
 
 
 
 /*----------------------------Estilos validación de registro de usuario--------------------------------*/
 
+.box-register1{
+    margin-bottom: 20px;
+}
 
 .valid-register{
     background-color: #ca5050;
@@ -254,22 +245,12 @@
     align-items: center;
 }
 
-.iconPassEye{
+.iconPassEye, .iconPassEye2{
     font-size: 23px;
     color: #5e5e5e;
-    position: absolute;
-    right: 65px;
-    bottom: 232px;
-    cursor: pointer;
-    transition: all 0.5s;
-}
-
-.iconPassEye2{
-    font-size: 23px;
-    color: #5e5e5e;
-    position: absolute;
-    right: 65px;
-    bottom: 153px;
+    position: relative;
+    left: 310px;
+    bottom: 55px;
     cursor: pointer;
     transition: all 0.5s;
 }
@@ -284,4 +265,54 @@
 
 .box-register:focus-within .iconPassEye2{/*Damos click en el formulario y el label se anima*/
     color: #104d7c; 
+}
+
+@media screen and (max-width: 1070px){
+    .iconPassEye, .iconPassEye2{
+        left: 280px;
+    }
+}
+
+@media screen and (max-width: 1000px){
+    .iconPassEye, .iconPassEye2{
+        left: 240px;
+    }
+}
+
+
+
+
+/*----------------------------Estilos Spinner--------------------------------*/
+
+.spinner {
+    border: 8px solid rgba(160, 146, 146, 0.1);
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border-left-color: #3a6da0;
+
+    animation: spin 1s ease infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.containerSpinner{
+    position: fixed;
+    top: 0px;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(180, 179, 179, 0.9);
+    z-index: 2;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

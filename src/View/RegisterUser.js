@@ -1,4 +1,4 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
@@ -12,24 +12,27 @@ import { useFormReact } from '../hooks/useFormReact';
 import fondoLogin from '../Img/fondoLogin.jpg';
 import user from '../Img/userRegister.png';
 
+import { removeError, setError } from '../Redux/Actions/uiActions';
+import { startRegisterUser } from '../Redux/Actions/authActions';
+import { Spinner } from '../Components/Spinner';
+
 export const RegisterUser = () => {
 
     //Hooks y Helpers
     const dispatch = useDispatch()
 
-    const [validRegister, setValidRegister] = useState(false)
-    const [validEmail, setValidEmail] = useState(false)
-    const [validPassword, setValidPassword] = useState(false)
-    const [minimunPassword, setMinimunPassword] = useState(false)
+    //Estado del error de validación de campo
+    const { msgError, loading } = useSelector( state => state.ui );
 
+    //Hooks
     const [showEyePassword, setShowEyePassword] = useState(false)
     const [showEyePassword2, setShowEyePassword2] = useState(false)
 
 
+    //Manejadores de eventos de ver contraseña
     const handleShowPassword = () => {
         setShowEyePassword(!showEyePassword)
     }
-
     const handleShowPassword2 = () => {
         setShowEyePassword2(!showEyePassword2)
     }
@@ -38,49 +41,43 @@ export const RegisterUser = () => {
     const [ formValues, handleInputChange ] = useFormReact({
         nombre: '',
         email: '',
-        contraseña: '',
-        contraseña2: '',
+        password: '',
+        password2: '',
     })
-    const { nombre, email, contraseña, contraseña2 } = formValues
+    const { nombre, email, password, password2 } = formValues
 
     //Enviamos la información
     const handleLogin = (e) => {
         e.preventDefault()
 
-        if( nombre === "" || email === "" || contraseña === "" || contraseña2 === "" ){
-            setValidRegister(true)
+        if( nombre === "" || email === "" || password === "" || password2 === "" ){
+            dispatch ( setError('Todos los campos son Requeridos.') )
             return
         }
-
         if( !validator.isEmail( email ) ){
-            setValidEmail(true)
+            dispatch ( setError('El correo debe de ser válido.') )
+            return
+        }
+        if( password !== password2 ){
+            dispatch ( setError('Las contraseñas deben de ser iguales.') )
+            return
+        }
+        if( password.length < 5){
+            dispatch ( setError('La contraseña debe de tener más de 5 items.') )
             return
         }
 
-        if( contraseña !== contraseña2 ){
-            setValidPassword(true)
-            return
-        }
+        dispatch( removeError() )
 
-        if( contraseña.length < 5){
-            setMinimunPassword(true)
-            return
-        }
-
-        setValidRegister(false)
-        setValidEmail(false)
-        setValidPassword(false)
-        setMinimunPassword(false)
-
-
-        // dispatch( startLogin(email, password) )
-
-        console.log(formValues)
+        dispatch( startRegisterUser(nombre, email, password) )
     }
 
+    
   return (
     <>
         <div className="container-primary">
+
+            { loading && (<Spinner />) }
 
             <div className="box-background-login">
                 <img className="background-img" src={ fondoLogin } alt="fondo"/>
@@ -97,7 +94,7 @@ export const RegisterUser = () => {
 
                     <form onSubmit={ handleLogin } className="formulario-login">
 
-                        <div className="box-register">
+                        <div className="box-register1">
                             <LabelLogin
                                 className="label-register"
                             >
@@ -113,7 +110,7 @@ export const RegisterUser = () => {
                             />
                         </div>
 
-                        <div className="box-register">
+                        <div className="box-register1">
                             <LabelLogin
                                 className="label-register"
                             >
@@ -138,18 +135,13 @@ export const RegisterUser = () => {
 
                             <InputLogin 
                                 type={showEyePassword ? "text" : "password"}
-                                name="contraseña"
+                                name="password"
                                 autoComplete="off"
-                                value={ contraseña }
+                                value={ password }
                                 onChange={ handleInputChange }
                             />
-                            <span onClick={ handleShowPassword }>
-                                {showEyePassword
-                                    ? 
-                                        <FontAwesomeIcon className="iconPassEye" icon={ faEye } /> 
-                                    : 
-                                        <FontAwesomeIcon className="iconPassEye" icon={ faEyeSlash } /> 
-                                }
+                            <span className='iconPassEye' onClick={ handleShowPassword }>
+                                {showEyePassword ? <FontAwesomeIcon icon={ faEye } /> : <FontAwesomeIcon icon={ faEyeSlash } /> }
                             </span>
                         </div>
 
@@ -162,51 +154,22 @@ export const RegisterUser = () => {
 
                             <InputLogin 
                                 type={showEyePassword2 ? "text" : "password"}
-                                name="contraseña2"
+                                name="password2"
                                 autoComplete="off"
-                                value={ contraseña2 }
+                                value={ password2 }
                                 onChange={ handleInputChange }
                             />
 
-                            <span onClick={ handleShowPassword2 }>
-                                {showEyePassword2 
-                                    ? 
-                                        <FontAwesomeIcon className="iconPassEye2" icon={ faEye } /> 
-                                    : 
-                                        <FontAwesomeIcon className="iconPassEye2" icon={ faEyeSlash } /> 
-                                }
+                            <span className='iconPassEye2' onClick={ handleShowPassword2 }>
+                                {showEyePassword2 ? <FontAwesomeIcon icon={ faEye } /> : <FontAwesomeIcon icon={ faEyeSlash } /> }
                             </span>
 
                         </div>
 
                         {
-                            validRegister && (
+                            msgError && (
                                 <div className='valid-register'>
-                                    <p>Todos los campos son Requeridos.</p>
-                                </div>
-                            )
-                        }
-
-                        {
-                            validEmail && (
-                                <div className='valid-register'>
-                                    <p>El correo debe de ser válido.</p>
-                                </div>
-                            )
-                        }
-
-                        {
-                            validPassword && (
-                                <div className='valid-register'>
-                                    <p>Las contraseñas deben de ser iguales.</p>
-                                </div>
-                            )
-                        }
-
-                        {
-                            minimunPassword && (
-                                <div className='valid-register'>
-                                    <p>La contraseña debe de tener más de 5 items.</p>
+                                    <p>{ msgError }</p>
                                 </div>
                             )
                         }
