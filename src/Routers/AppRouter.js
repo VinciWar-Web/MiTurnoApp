@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import {
     BrowserRouter, 
@@ -8,46 +8,57 @@ import {
 
 import { Login } from "../View/Login";
 import { RegisterUser } from "../View/RegisterUser";
+import { Home } from "../View/Home";
+
+import { PublicRoute } from "./PublicRoute";
+import { PrivateRoute } from "./PrivateRoute";
+import { checkingLog } from "../Redux/Actions/uiActions";
 import { login } from "../Redux/Actions/authActions";
 
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { firebaseApp } from "../Firebase/firebase-config";
-import { Home } from "../View/Home";
 const auth = getAuth(firebaseApp)
 
 export const AppRouter = () => {
     
     const dispatch = useDispatch();
 
-    const [checking, setChecking] = useState(true)
-    const [isLoggedIn, setIsLoggedIn] = useState(false)
+    // const [isLoggedIn, setIsLoggedIn] = useState(false)
 
     //Sostiene la autenticación
     useEffect(() => {
         onAuthStateChanged(auth, (user) => {
             if(user?.uid){
                 dispatch( login(user.uid, user.displayName) )
-                setIsLoggedIn(true)
+                dispatch( checkingLog(true) )
+            } else {
+                dispatch( checkingLog(false) )
             }
-            setChecking(false)
         })
-    }, [ dispatch, setChecking, setIsLoggedIn ])
+    }, [ dispatch ])
 
-    if( checking ){
-        return (
-            <h1>Espere...</h1>
-        )
-    }
     
     return (
         <BrowserRouter>
             <div>
                 <Routes>
-                    <Route exact path="/" element={ <Login />} />
-                    <Route exact path="/register-user" element={ <RegisterUser />} />
-                    <Route exact path="/home" element={ <Home />} />
+                    <Route path="/login" element={
+                        <PublicRoute >
+                            <Login />
+                        </PublicRoute>
+                    } />
 
+                    <Route path="/register-user" element={
+                        <PublicRoute >
+                            <RegisterUser />
+                        </PublicRoute>
+                    } />
 
+                    <Route path="/*" element={
+                        <PrivateRoute >
+                            <Home />
+                        </PrivateRoute>
+                    } />
                 </Routes>
             </div>
         </BrowserRouter>

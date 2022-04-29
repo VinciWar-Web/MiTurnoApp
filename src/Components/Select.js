@@ -6,7 +6,7 @@ const color = {
 }
 
 
-export const InputLogin = styled.input`
+export const Select = styled.select`
      background-color: rgba(205, 205, 206, 0.0);
      border: none;
      border-bottom: solid 1px #535353;
@@ -15,7 +15,7 @@ export const InputLogin = styled.input`
      padding: 10px;
      padding-right: 40px;
      outline: 0 none;
-     width: 83%;
+     width: 98%;
      transition-duration: 0.3s;
 
      &:focus {

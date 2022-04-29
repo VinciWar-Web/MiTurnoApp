@@ -11,13 +11,14 @@ import { ButtonLogin } from '../Components/Button';
 import fondoLogin from '../Img/fondoLogin.jpg'
 import user from '../Img/user.png'
 
-import { removeError, setError } from '../Redux/Actions/uiActions';
+import { removeError, setError, startSpinner } from '../Redux/Actions/uiActions';
 import { startLogin } from '../Redux/Actions/authActions';
 import { Spinner } from '../Components/Spinner';
+import { useEffect } from 'react';
 
 export const Login = () => {
 
-    //Hooks y Helpers
+    //Helpers
     const dispatch = useDispatch()
 
     //Estado del error de validación de campo
@@ -47,11 +48,19 @@ export const Login = () => {
             return
         }
 
-        dispatch( removeError() )
+        // if(checkingLog === false){
+        //     dispatch ( setError('Contraseña o usuario incorrecto.') )
+        // }
 
+        dispatch( removeError() )
         dispatch( startLogin(email, password) )
     }
 
+    useEffect(() => {
+        dispatch( startSpinner(false) )
+    }, [dispatch])
+    
+    
   return (
     <>
         <div className="container-primary">
@@ -88,7 +97,9 @@ export const Login = () => {
                                 value={ email }
                                 onChange={ handleInputChange }
                             />
-                            <FontAwesomeIcon className="iconUser" icon={ faUser } /> 
+                            <div className="iconUser">
+                                <FontAwesomeIcon icon={ faUser } /> 
+                            </div>
                         </div>
 
 
@@ -108,7 +119,9 @@ export const Login = () => {
                                 value={ password }
                                 onChange={ handleInputChange }
                             />
-                            <FontAwesomeIcon className="iconPass" icon={ faLock } /> 
+                            <div className="iconPass">
+                                <FontAwesomeIcon icon={ faLock } /> 
+                            </div>
                         </div>
 
                         {

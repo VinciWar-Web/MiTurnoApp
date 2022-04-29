@@ -1,10 +1,9 @@
 // import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { types } from '../../Types/types'
-import { firebaseApp } from '../../Firebase/firebase-config'
-import { getAuth, createUserWithEmailAndPassword, updateProfile, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { startSpinner } from './uiActions';
-import { async } from '@firebase/util';
 
+import { getAuth, createUserWithEmailAndPassword, updateProfile, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { firebaseApp } from '../../Firebase/firebase-config'
 const auth = getAuth(firebaseApp)
 
 
@@ -49,14 +48,11 @@ export const startRegisterUser = (nombre, email, password) => {
 
 export const starLogout = () => {
     return async ( dispatch ) => {
-
         await signOut(auth)
         dispatch( logout() )
 
     }
 }
-
-
 
 export const login = ( uid, displayName ) => ({
     type: types.login,
